@@ -15,6 +15,7 @@ require (
 	github.com/mattn/go-isatty v0.0.4 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/spf13/cast v1.2.0
 	github.com/spf13/viper v1.2.1
 	github.com/ugorji/go/codec v0.0.0-20180831062425-e253f1f20942 // indirect
 	github.com/xiaomi/naftis v0.0.0-20181029013652-a31e9324f552 // indirect

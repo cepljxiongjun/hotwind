@@ -13,7 +13,10 @@ func main() {
 	parseConfig()
 	service.Init()
 	r := gin.Default()
-	r.GET("/ping", handles.GetPostByID)
+	r.GET("/posts/:id", handles.Post.Get)
+	r.POST("/posts", handles.Post.Add)
+	r.PUT("/posts/:id", handles.Post.Update)
+	r.DELETE("/posts/:id", handles.Post.Delete)
 	r.Run()
 }
 
