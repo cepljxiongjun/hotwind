@@ -3,6 +3,8 @@ package service
 import (
 	"fmt"
 
+	"github.com/cepljxiongjun/hotwind/models"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql" // import mysql
 	"github.com/spf13/viper"
@@ -21,5 +23,5 @@ func Init() {
 	}
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
-	// db.AutoMigrate(&modles.Post{}, &modles.Category{}, &modles.User{})
+	db.AutoMigrate(&models.Post{}, &models.Category{}, &models.User{})
 }

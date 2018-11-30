@@ -13,13 +13,18 @@ func main() {
 	parseConfig()
 	service.Init()
 	r := gin.Default()
+	r.GET("/posts", handles.Post.Get)
 	r.GET("/posts/:id", handles.Post.Get)
 	r.POST("/posts", handles.Post.Add)
 	r.PUT("/posts/:id", handles.Post.Update)
 	r.DELETE("/posts/:id", handles.Post.Delete)
-	r.Run()
+	r.GET("/categories", handles.Post.Get)
+	r.GET("/categories/:id", handles.Post.Get)
+	r.POST("/categories", handles.Post.Add)
+	r.PUT("/categories/:id", handles.Post.Update)
+	r.DELETE("/categories/:id", handles.Post.Delete)
+	r.Run(":8000")
 }
-
 
 func parseConfig() {
 	viper.SetConfigFile("config/in-local.toml")
