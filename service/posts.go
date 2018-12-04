@@ -11,6 +11,13 @@ var Post post
 
 type post struct{}
 
+func (post) All() (*[]models.Post, error) {
+	var p []models.Post
+	db.Find(&p)
+
+	return &p, nil
+}
+
 func (post) Get(id uint) (*models.Post, error) {
 	p := models.Post{}
 	if db.First(&p, id).RecordNotFound() {

@@ -13,7 +13,7 @@ func main() {
 	parseConfig()
 	service.Init()
 	r := gin.Default()
-	r.GET("/posts", handles.Post.Get)
+	r.GET("/posts", handles.Post.All)
 	r.GET("/posts/:id", handles.Post.Get)
 	r.POST("/posts", handles.Post.Add)
 	r.PUT("/posts/:id", handles.Post.Update)

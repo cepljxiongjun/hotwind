@@ -12,8 +12,25 @@ var Post post
 
 type post struct{}
 
+func (post) All(c *gin.Context) {
+	post, err := service.Post.All()
+	if err != nil {
+		c.JSON(404, gin.H{
+			"message": "404 NOT FOUNT",
+		})
+		return
+	}
+	c.JSON(200, post)
+}
+
 func (post) Get(ctx *gin.Context) {
 	id := cast.ToUint(ctx.Param("id"))
+	if id < 1 {
+		ctx.JSON(404, gin.H{
+			"message": "404 NOT FOUNT",
+		})
+		return
+	}
 	post, err := service.Post.Get(id)
 	if err != nil {
 		ctx.JSON(404, gin.H{
