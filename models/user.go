@@ -1,11 +1,14 @@
 package models
 
-type User struct {
-	ID int64 `json:"id"`
-	Username string `json:"username"`
-	Email string `json:"email"`
-	PasswordHash string `json:"password_hash" db:"password_hash"`
-	CreatedAt string `json:"created_at" db:"created_at"`
-	UpdatedAt string `json:"updated_at" db:"updated_at"`
-}
+import "time"
 
+// User tables users
+type User struct {
+	ID           int64      `json:"id"`
+	Username     string     `json:"username" sql:"unique_index"`
+	Email        string     `json:"email"`
+	PasswordHash string     `json:"password_hash"`
+	CreatedAt    time.Time  `json:"created_at" json:"created_at"`
+	UpdatedAt    time.Time  `json:"updated_at"`
+	DeletedAt    *time.Time `json:"deleted_at" sql:"index"`
+}

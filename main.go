@@ -23,6 +23,8 @@ func main() {
 	r.POST("/categories", handles.Post.Add)
 	r.PUT("/categories/:id", handles.Post.Update)
 	r.DELETE("/categories/:id", handles.Post.Delete)
+	r.POST("/users", handles.User.Create)
+	r.POST("/login", handles.User.Login)
 	r.Run(viper.GetString("port.default"))
 }
 
