@@ -1,4 +1,0 @@
-[db]
-    default="root:123456@tcp(127.0.0.1:3306)/hotwinds?charset=utf8&parseTime=True&loc=Local" # TODO replace MySQL DSN with your own
-[port]
-    default=":8000"    
