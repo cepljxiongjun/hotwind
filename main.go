@@ -23,7 +23,7 @@ func main() {
 	r.POST("/categories", handles.Post.Add)
 	r.PUT("/categories/:id", handles.Post.Update)
 	r.DELETE("/categories/:id", handles.Post.Delete)
-	r.Run(":8000")
+	r.Run(viper.GetString("port.default"))
 }
 
 func parseConfig() {
