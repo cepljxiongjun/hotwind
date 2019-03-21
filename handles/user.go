@@ -1,8 +1,6 @@
 package handles
 
 import (
-	"fmt"
-
 	"github.com/cepljxiongjun/hotwind/helper"
 	"github.com/cepljxiongjun/hotwind/service"
 	"github.com/gin-gonic/gin"
@@ -14,11 +12,22 @@ var User user
 type user struct {
 }
 
+type postUser struct {
+	Username string `form:"username" binding:"required"`
+	Password string `form:"password" binding:"required"`
+}
+
 //  Create a new user
 func (user) Create(c *gin.Context) {
-	username := c.PostForm("username")
-	passowrd := c.PostForm("password")
-	fmt.Println(len(passowrd), passowrd, username)
+	var form postUser
+	if err := c.BindJSON(&form); err != nil {
+		c.JSON(401, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	username := form.Username
+	passowrd := form.Password
 	if len(passowrd) < 6 || len(passowrd) > 20 {
 		c.JSON(400, gin.H{
 			"message": "密码长度为6-20",
@@ -37,8 +46,15 @@ func (user) Create(c *gin.Context) {
 }
 
 func (user) Login(c *gin.Context) {
-	username := c.PostForm("username")
-	passowrd := c.PostForm("password")
+	var form postUser
+	if err := c.BindJSON(&form); err != nil {
+		c.JSON(401, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	username := form.Username
+	password := form.Password
 	u, err := service.User.GetByUsername(username)
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -46,7 +62,7 @@ func (user) Login(c *gin.Context) {
 		})
 		return
 	}
-	bool := helper.CheckPassword(u.PasswordHash, passowrd)
+	bool := helper.CheckPassword(u.PasswordHash, password)
 	if !bool {
 		c.JSON(400, gin.H{
 			"message": "密码错误",
