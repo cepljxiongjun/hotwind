@@ -50,7 +50,7 @@ type postForm struct {
 func (post) Add(ctx *gin.Context) {
 
 	var form postForm
-	err := ctx.Bind(&form)
+	err := ctx.BindJSON(&form)
 	if err != nil {
 		ctx.JSON(400, gin.H{
 			"message": err.Error(),
@@ -72,7 +72,7 @@ func (post) Add(ctx *gin.Context) {
 func (post) Update(c *gin.Context) {
 	id := cast.ToUint(c.Param("id"))
 	var form postForm
-	err := c.Bind(&form)
+	err := c.BindJSON(&form)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"message": err.Error(),
