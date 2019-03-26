@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 
+	"github.com/cepljxiongjun/hotwind/middleware"
+
 	"github.com/cepljxiongjun/hotwind/handles"
 	"github.com/cepljxiongjun/hotwind/service"
 	"github.com/gin-gonic/gin"
@@ -13,18 +15,21 @@ func main() {
 	parseConfig()
 	service.Init()
 	r := gin.Default()
-	r.GET("/posts", handles.Post.All)
-	r.GET("/posts/:id", handles.Post.Get)
-	r.POST("/posts", handles.Post.Add)
-	r.PUT("/posts/:id", handles.Post.Update)
-	r.DELETE("/posts/:id", handles.Post.Delete)
-	r.GET("/categories", handles.Post.Get)
-	r.GET("/categories/:id", handles.Post.Get)
-	r.POST("/categories", handles.Post.Add)
-	r.PUT("/categories/:id", handles.Post.Update)
-	r.DELETE("/categories/:id", handles.Post.Delete)
-	r.POST("/users", handles.User.Create)
 	r.POST("/login", handles.User.Login)
+	api := r.Group("/api").Use(middleware.JwtMiddleware())
+	{
+		api.GET("/posts", handles.Post.All)
+		api.GET("/posts/:id", handles.Post.Get)
+		api.POST("/posts", handles.Post.Add)
+		api.PUT("/posts/:id", handles.Post.Update)
+		api.DELETE("/posts/:id", handles.Post.Delete)
+		api.GET("/categories", handles.Post.Get)
+		api.GET("/categories/:id", handles.Post.Get)
+		api.POST("/categories", handles.Post.Add)
+		api.PUT("/categories/:id", handles.Post.Update)
+		api.DELETE("/categories/:id", handles.Post.Delete)
+		api.POST("/users", handles.User.Create)
+	}
 	r.Run(viper.GetString("port.default"))
 }
 
